@@ -1,0 +1,4 @@
+res://main.tscn
+res://position.gd
+res://mockfish.gd
+res://engine/movegen.gd

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b10340wohk1nk"]
+
+[ext_resource type="Script" path="res://engine/movegen.gd" id="1_175h2"]
+[ext_resource type="Script" path="res://mockfish.gd" id="1_d7kpb"]
+
+[node name="main" type="Node"]
+
+[node name="Mockfish" type="Node" parent="."]
+script = ExtResource("1_d7kpb")
+
+[node name="Movegen" type="Node" parent="Mockfish"]
+script = ExtResource("1_175h2")
+
+[node name="Search" type="Node" parent="Mockfish"]
+
+[node name="Eval" type="Node" parent="Mockfish"]
