@@ -3,7 +3,7 @@ extends Node
 
 
 const START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-const TEST_FEN = "8/8/3n1n2/5N2/4NN2/8/5N2/8"
+const TEST_FEN = "4k3/p7/7P/8/8/8/5P2/3K4"
 const PIECES_FROM_FEN = {
 	'p': Piece.PAWN,
 	'n': Piece.KNIGHT,

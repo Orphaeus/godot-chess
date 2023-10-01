@@ -1,9 +1,9 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1695962661
-main.tscn::PackedScene::4264693273669465004::1695947018::0::1::::<><>::res://engine/movegen.gd<>res://mockfish.gd
-mockfish.gd::GDScript::-1::1695947001::0::1::::<>Node<>::
+::res://::1696178764
+main.tscn::PackedScene::4264693273669465004::1696178639::0::1::::<><>::res://engine/movegen.gd<>res://mockfish.gd
+mockfish.gd::GDScript::-1::1696176970::0::1::::<>Node<>::
 piece.gd::GDScript::-1::1695931702::0::1::::<>Node<>::
-position.gd::GDScript::-1::1695946722::0::1::::<>Node<>::
+position.gd::GDScript::-1::1696178639::0::1::::<>Node<>::
 ::res://assets/::1695929685
 ::res://assets/audio/::1695929685
 capture.mp3::AudioStreamMP3::8012191394920154693::1695929654::1695929654::1::::<><>::
@@ -24,5 +24,5 @@ icon.jpg::CompressedTexture2D::6386021535630548603::1695929654::1695929655::1:::
 pieces.png::CompressedTexture2D::2545997306002198544::1695929654::1695929655::1::::<><>::
 ::res://classes/::1695931645
 move.gd::GDScript::-1::1695931622::0::1::::Move<>Node<>::
-::res://engine/::1695946842
-movegen.gd::GDScript::-1::1695946842::0::1::::<>Node<>::
+::res://engine/::1696178560
+movegen.gd::GDScript::-1::1696178560::0::1::::<>Node<>::

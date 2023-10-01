@@ -21,7 +21,7 @@ func generate_moves() -> Array[Move]:
 		if Piece.get_color(piece) == Position.color_to_move:
 			match Piece.get_type(piece):
 				Piece.PAWN:
-					pass #moves.append_array(_generate_pawn_moves(i))
+					moves.append_array(_generate_pawn_moves(i))
 				Piece.KNIGHT:
 					moves.append_array(_generate_knight_moves(i))
 				Piece.BISHOP:
@@ -31,7 +31,7 @@ func generate_moves() -> Array[Move]:
 				Piece.QUEEN:
 					moves.append_array(_generate_queen_moves(i))
 				Piece.KING:
-					pass #moves.append_array(_generate_king_moves(i))
+					moves.append_array(_generate_king_moves(i))
 				Piece.NONE:
 					continue
 		i += 1
@@ -74,8 +74,10 @@ func _generate_pawn_moves(start_square: int) -> Array:
 		end_square = start_square + offset
 		piece_on_end_square = Position.board[end_square]
 		if (
-			Piece.get_color(piece_on_end_square) != Position.color_to_move
-			and Piece.get_type(piece_on_end_square) != Piece.NONE
+			(Piece.get_color(piece_on_end_square) != Position.color_to_move
+			and Piece.get_type(piece_on_end_square) != Piece.NONE)
+			or
+			(end_square == Position.ep_target_square)
 		):
 			moves.append(Move.new(start_square, end_square, Move.Result.CAPTURE))
 
@@ -174,21 +176,22 @@ func _generate_queen_moves(start_square: int) -> Array:
 
 func _generate_king_moves(start_square: int) -> Array:
 	var moves: Array[Move]
-	for offset in DIRECTION_OFFSETS:
-		var end_square : int = start_square + offset
-		var piece_on_end_square : int = Position.board[end_square]
+	for direction in range(0, 8):
+		if num_squares_to_edge[start_square][direction] > 0:
+			var end_square : int = start_square + DIRECTION_OFFSETS[direction]
+			var piece_on_end_square : int = Position.board[end_square]
 
-		# Blocked by friendly piece
-		if Piece.get_color(piece_on_end_square) == Position.color_to_move:
-			break
-		if Piece.get_type(piece_on_end_square) == Piece.NONE:
-			moves.append(Move.new(start_square, end_square, Move.Result.MOVE))
-		# Separate return if it's a capture
-		if (
-				Piece.get_color(piece_on_end_square) != Position.color_to_move
-				and Piece.get_type(piece_on_end_square) != Piece.NONE
-		):
-			moves.append(Move.new(start_square, end_square, Move.Result.CAPTURE))
+			# Blocked by friendly piece
+			if Piece.get_color(piece_on_end_square) == Position.color_to_move:
+				break
+			if Piece.get_type(piece_on_end_square) == Piece.NONE:
+				moves.append(Move.new(start_square, end_square, Move.Result.MOVE))
+			# Separate return if it's a capture
+			if (
+					Piece.get_color(piece_on_end_square) != Position.color_to_move
+					and Piece.get_type(piece_on_end_square) != Piece.NONE
+			):
+				moves.append(Move.new(start_square, end_square, Move.Result.CAPTURE))
 
 	return moves
 
