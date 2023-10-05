@@ -1,2 +1,5 @@
-res://main.tscn
-res://gui.gd
+res://main.gd
+res://scenes/main.tscn
+res://classes/gui_piece.gd
+res://gui/guipieces.gd
+res://scenes/gui_piece.tscn

@@ -1,0 +1,92 @@
+[gd_scene load_steps=8 format=3 uid="uid://b10340wohk1nk"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_fpejq"]
+[ext_resource type="Script" path="res://gui/gui.gd" id="2_mgub1"]
+[ext_resource type="Script" path="res://gui/highlighter.gd" id="3_81ihb"]
+[ext_resource type="Script" path="res://gui/board.gd" id="4_s1eje"]
+[ext_resource type="Script" path="res://gui/guipieces.gd" id="5_kkfss"]
+[ext_resource type="Script" path="res://engine/mockfish.gd" id="6_mr55j"]
+[ext_resource type="Script" path="res://engine/movegen.gd" id="7_n2c5m"]
+
+[node name="main" type="Node"]
+script = ExtResource("1_fpejq")
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 640.0
+mouse_filter = 2
+script = ExtResource("2_mgub1")
+
+[node name="VBoxContainer" type="GridContainer" parent="GUI"]
+custom_minimum_size = Vector2(640, 640)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+
+[node name="Panel" type="Panel" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(640, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Panel" type="Panel" parent="GUI/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 512)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 1
+
+[node name="Highlighter" type="Control" parent="GUI/VBoxContainer/HBoxContainer"]
+z_index = 1
+z_as_relative = false
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("3_81ihb")
+
+[node name="Board" type="Control" parent="GUI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+script = ExtResource("4_s1eje")
+
+[node name="Panel2" type="Panel" parent="GUI/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 512)
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 1
+
+[node name="Panel2" type="Panel" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(640, 64)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="GUIPieces" type="Control" parent="GUI"]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+mouse_filter = 1
+script = ExtResource("5_kkfss")
+
+[node name="Mockfish" type="Node" parent="."]
+script = ExtResource("6_mr55j")
+
+[node name="Movegen" type="Node" parent="Mockfish"]
+script = ExtResource("7_n2c5m")
+
+[node name="Search" type="Node" parent="Mockfish"]
+
+[node name="Eval" type="Node" parent="Mockfish"]
+
+[connection signal="piece_picked" from="GUI/GUIPieces" to="." method="_on_piece_picked"]
+[connection signal="piece_unpicked" from="GUI/GUIPieces" to="." method="_on_piece_unpicked"]

@@ -14,7 +14,7 @@ const PIECES_FROM_FEN = {
 }
 
 var board : Array[int]
-var color_to_move : int = Piece.BLACK
+var color_to_move : int = Piece.WHITE
 var ep_target_square : int
 
 

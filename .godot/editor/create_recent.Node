@@ -1,4 +1,14 @@
-VBoxContainer
-LineEdit
+CollisionShape2D
+Area2D
+AnimatedSprite2D
 Control
+Node2D
+RemoteTransform2D
+GridContainer
+Panel
+Container
+HBoxContainer
+VBoxContainer
+NinePatchRect
+LineEdit
 Node

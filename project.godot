@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Chess"
-run/main_scene="res://main.tscn"
+run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 
 [autoload]
 
 Position="*res://position.gd"
-Piece="*res://piece.gd"
+Piece="*res://classes/piece.gd"
 
 [display]
 
