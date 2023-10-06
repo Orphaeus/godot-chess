@@ -9,7 +9,7 @@ func _draw() -> void:
 	if len(highlights) > 0:
 		# Draw highlights
 		for square in highlights:
-			var coords := Vector2((square[0] % 8) * 64, (square[0] / 8) * 64)
+			var coords := BoardHelper.get_coords_from_square(square[0]) - Vector2(32, 32)
 			var rect := Rect2(coords.x, coords.y, 64, 64)
 			draw_rect(rect, square[1], true)
 

@@ -15,7 +15,7 @@ func _ready():
 	for square in Position.board:
 		if square != Piece.NONE:
 			var new_gui_piece : GUI_Piece = _GUI_Piece.instantiate()
-			var square_coords := Vector2(32 + (i % 8) * 64, 32 + (i / 8) * 64)
+			var square_coords := BoardHelper.get_coords_from_square(i)
 			new_gui_piece.set_position(square_coords)
 			new_gui_piece.set_animation(str(square))
 			new_gui_piece.piece = square
@@ -36,13 +36,8 @@ func update_pieces() -> void:
 
 
 func _on_piece_picked(piece:GUI_Piece) -> void:
-	emit_signal("piece_picked", _get_square_from_coords(piece.start_coords))
+	emit_signal("piece_picked", BoardHelper.get_square_from_coords(piece.start_coords))
 
 
 func _on_piece_unpicked(piece:GUI_Piece) -> void:
-	emit_signal("piece_unpicked", _get_square_from_coords(piece.start_coords))
-
-
-## Calculate square index given coords
-func _get_square_from_coords(pos:Vector2) -> int:
-	return (pos.y - 32) / 64 * 8 + (pos.x - 32) / 64
+	emit_signal("piece_unpicked", BoardHelper.get_square_from_coords(piece.start_coords))

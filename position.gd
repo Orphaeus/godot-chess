@@ -21,7 +21,7 @@ var ep_target_square : int
 func _ready() -> void:
 	# Read from FEN
 	board = _fen_to_int(TEST_FEN)
-	pretty_print_board(board)
+	#pretty_print_board(board)
 
 
 func _fen_to_int(fen_str: String) -> Array:
