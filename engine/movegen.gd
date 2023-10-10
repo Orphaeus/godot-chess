@@ -6,11 +6,9 @@ extends Node
 const DIRECTION_OFFSETS : Array[int] = [7, 8, 9, -1, 1, -9, -8, -7]
 const KNIGHT_OFFSETS : Array[int] = [15, 17, 6, 10, -10, -6, -17, -15]
 
+
 var num_squares_to_edge := {}
-
-
-func _ready() -> void:
-	_precompute_move_data()
+var valid_knight_squares := {}
 
 
 func generate_moves() -> Array[Move]:
@@ -69,7 +67,7 @@ func _generate_pawn_moves(start_square: int) -> Array:
 		if Piece.get_type(piece_on_end_square) == Piece.NONE:
 			moves.append(Move.new(start_square, end_square, Move.Result.MOVE))
 
-	# Captures
+	# Captures # NEEDS TO BE REWRITTEN TO USE squares_to_edge
 	for offset in offsets["captures"]:
 		end_square = start_square + offset
 		piece_on_end_square = Position.board[end_square]
@@ -87,12 +85,15 @@ func _generate_pawn_moves(start_square: int) -> Array:
 func _generate_knight_moves(start_square: int) -> Array:
 	var moves: Array[Move]
 	for offset in KNIGHT_OFFSETS:
+		var offset_idx = KNIGHT_OFFSETS.find(offset)
+		if valid_knight_squares[start_square][offset_idx] == 0:
+			continue
 		var end_square : int = start_square + offset
 		var piece_on_end_square : int = Position.board[end_square]
 
 		# Blocked by friendly piece
 		if Piece.get_color(piece_on_end_square) == Position.color_to_move:
-			break
+			continue
 		if Piece.get_type(piece_on_end_square) == Piece.NONE:
 			moves.append(Move.new(start_square, end_square, Move.Result.MOVE))
 		# Separate return if it's a capture
@@ -197,7 +198,7 @@ func _generate_king_moves(start_square: int) -> Array:
 
 
 ## Calculate distance from each square to edge in all 8 directions at runtime
-func _precompute_move_data() -> void:
+func precompute_move_data() -> void:
 	for rank in range(0,8):
 		for file in range(0,8):
 			var num_north : int = 7 - rank
@@ -217,3 +218,32 @@ func _precompute_move_data() -> void:
 				num_south,
 				min(num_south,num_east),
 			]
+	# Knight move addendum
+	# [15, 17, 6, 10, -10, -6, -17, -15]
+	for i in range(0,64):
+		var valid_offsets := [1, 1, 1, 1, 1, 1, 1, 1]
+		if num_squares_to_edge[i][1] < 2: # N
+			valid_offsets[0] = 0
+			valid_offsets[1] = 0
+		if num_squares_to_edge[i][1] < 1: # N close
+			valid_offsets[2] = 0
+			valid_offsets[3] = 0
+		if num_squares_to_edge[i][3] < 2: # W
+			valid_offsets[2] = 0
+			valid_offsets[4] = 0
+		if num_squares_to_edge[i][3] < 1: # W close
+			valid_offsets[0] = 0
+			valid_offsets[6] = 0
+		if num_squares_to_edge[i][4] < 2: # E
+			valid_offsets[3] = 0
+			valid_offsets[5] = 0
+		if num_squares_to_edge[i][4] < 1: # E close
+			valid_offsets[1] = 0
+			valid_offsets[7] = 0
+		if num_squares_to_edge[i][6] < 2: # S
+			valid_offsets[6] = 0
+			valid_offsets[7] = 0
+		if num_squares_to_edge[i][6] < 1: # S close
+			valid_offsets[4] = 0
+			valid_offsets[5] = 0
+		valid_knight_squares[i] = valid_offsets

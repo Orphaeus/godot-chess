@@ -19,7 +19,7 @@ offset_bottom = 640.0
 mouse_filter = 2
 script = ExtResource("2_mgub1")
 
-[node name="VBoxContainer" type="GridContainer" parent="GUI"]
+[node name="GridContainer" type="GridContainer" parent="GUI"]
 custom_minimum_size = Vector2(640, 640)
 layout_mode = 0
 offset_right = 40.0
@@ -27,43 +27,43 @@ offset_bottom = 40.0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 
-[node name="Panel" type="Panel" parent="GUI/VBoxContainer"]
+[node name="Panel" type="Panel" parent="GUI/GridContainer"]
 custom_minimum_size = Vector2(640, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 mouse_filter = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/GridContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Panel" type="Panel" parent="GUI/VBoxContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="GUI/GridContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 512)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 1
 
-[node name="Highlighter" type="Control" parent="GUI/VBoxContainer/HBoxContainer"]
+[node name="Highlighter" type="Control" parent="GUI/GridContainer/HBoxContainer"]
 z_index = 1
 z_as_relative = false
 layout_mode = 2
 mouse_filter = 1
 script = ExtResource("3_81ihb")
 
-[node name="Board" type="Control" parent="GUI/VBoxContainer/HBoxContainer"]
+[node name="Board" type="Control" parent="GUI/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 script = ExtResource("4_s1eje")
 
-[node name="Panel2" type="Panel" parent="GUI/VBoxContainer/HBoxContainer"]
+[node name="Panel2" type="Panel" parent="GUI/GridContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 512)
 layout_mode = 2
 size_flags_horizontal = 8
 mouse_filter = 1
 
-[node name="Panel2" type="Panel" parent="GUI/VBoxContainer"]
+[node name="Panel2" type="Panel" parent="GUI/GridContainer"]
 custom_minimum_size = Vector2(640, 64)
 layout_mode = 2
 size_flags_vertical = 3

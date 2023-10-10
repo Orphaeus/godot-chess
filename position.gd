@@ -3,7 +3,7 @@ extends Node
 
 
 const START_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-const TEST_FEN = "4k3/p7/7P/8/8/8/5P2/3K4"
+const TEST_FEN = "4n3/n7/7N/8/8/8/5N2/3N4"
 const PIECES_FROM_FEN = {
 	'p': Piece.PAWN,
 	'n': Piece.KNIGHT,
@@ -21,7 +21,14 @@ var ep_target_square : int
 func _ready() -> void:
 	# Read from FEN
 	board = _fen_to_int(TEST_FEN)
-	#pretty_print_board(board)
+	_pretty_print_board()
+
+
+func make_move(move:Move) -> void:
+	board[move.end_square] = board[move.start_square]
+	board[move.start_square] = Piece.NONE
+	color_to_move = Piece.BLACK if color_to_move == Piece.WHITE else Piece.WHITE
+	_pretty_print_board()
 
 
 func _fen_to_int(fen_str: String) -> Array:
@@ -56,7 +63,7 @@ func _is_upper(str: String):
 		return false
 
 
-func pretty_print_board(board: Array[int]) -> void:
+func _pretty_print_board() -> void:
 	var pretty_board : Array
 	# Get rows
 	var i = 0
@@ -71,12 +78,12 @@ func pretty_print_board(board: Array[int]) -> void:
 			if square == 0:
 				pretty_board.append("")
 			elif square == 9:
-				pretty_board.append(90)
+				pretty_board.append(99)
 			else:
 				pretty_board.append(square)
 	# Print rows
 	print("\n")
 	i = 0
 	while i < 63:
-		print(pretty_board.slice(i, i+8))
+		print(pretty_board.slice(i, i+8), "\n")
 		i += 8

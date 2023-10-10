@@ -6,13 +6,8 @@ var moves : Array[Move]
 
 
 func _ready() -> void:
-	moves = $Movegen.generate_moves()
-	var move : Move = moves[0]
-	#print("\n",[move.start_square, move.end_square, move.result])
-	var test_board = Position.board
-	test_board[move.end_square] = test_board[move.start_square]
-	test_board[move.start_square] = 0
-	#Position.pretty_print_board(test_board)
+	$Movegen.precompute_move_data()
+	update_moves()
 
 
 func get_legal_moves_for_square(square) -> Array[Move]:
@@ -21,3 +16,7 @@ func get_legal_moves_for_square(square) -> Array[Move]:
 		if move.start_square == square:
 			moves_for_square.append(move)
 	return moves_for_square
+
+
+func update_moves() -> void:
+	moves = $Movegen.generate_moves()

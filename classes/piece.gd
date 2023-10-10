@@ -13,6 +13,7 @@ const WHITE : int = 8
 const BLACK : int = 16
 ## Bitmask for extracting the type from a given piece
 const TYPE_MASK : int = 0b00111
+## Bitmask for extracting the color from a given piece
 const COLOR_MASK : int = 0b11000
 
 

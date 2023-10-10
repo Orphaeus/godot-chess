@@ -1,8 +1,6 @@
 res://scenes/main.tscn
 res://classes/gui_piece.gd
-res://position.gd
 res://scenes/gui_piece.tscn
+res://position.gd
 res://gui/guipieces.gd
-res://engine/mockfish.gd
-res://classes/board_helper.gd
-res://gui/highlighter.gd
+res://main.gd

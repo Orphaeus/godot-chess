@@ -6,11 +6,16 @@ signal piece_picked(piece: GUI_Piece)
 signal piece_unpicked(piece: GUI_Piece)
 
 var _GUI_Piece : PackedScene = preload("res://scenes/gui_piece.tscn")
-var _picked_gui_piece: GUI_Piece
 
 
 func _ready():
+	update_pieces()
+
+
+func update_pieces() -> void:
 	# Set up position and gui_pieces
+	for child in get_children():
+		child.queue_free()
 	var i : int = 0
 	for square in Position.board:
 		if square != Piece.NONE:
@@ -28,16 +33,18 @@ func _ready():
 
 			add_child(new_gui_piece)
 		i += 1
-	get_tree().call_group("black_pieces", "set_pickable", false)
 
-
-func update_pieces() -> void:
-	pass # Read from position
+	if Position.color_to_move == Piece.WHITE:
+		get_tree().call_group("white_pieces", "set_pickable", true)
+		get_tree().call_group("black_pieces", "set_pickable", false)
+	else:
+		get_tree().call_group("white_pieces", "set_pickable", false)
+		get_tree().call_group("black_pieces", "set_pickable", true)
 
 
 func _on_piece_picked(piece:GUI_Piece) -> void:
-	emit_signal("piece_picked", BoardHelper.get_square_from_coords(piece.start_coords))
+	emit_signal("piece_picked", piece)
 
 
 func _on_piece_unpicked(piece:GUI_Piece) -> void:
-	emit_signal("piece_unpicked", BoardHelper.get_square_from_coords(piece.start_coords))
+	emit_signal("piece_unpicked", piece)

@@ -1,8 +1,8 @@
 extends Control
 
 
-@onready var board = $VBoxContainer/HBoxContainer/Board
-@onready var highlighter = $VBoxContainer/HBoxContainer/Highlighter
+@onready var board := $GridContainer/HBoxContainer/Board
+@onready var highlighter := $GridContainer/HBoxContainer/Highlighter
 
 @export var legal_move_color := Color("00ff76b1")
 @export var selected_color := Color("00d7f7c8")
