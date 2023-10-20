@@ -20,13 +20,30 @@ var ep_target_square : int
 
 func _ready() -> void:
 	# Read from FEN
-	board = _fen_to_int(TEST_FEN)
+	board = _fen_to_int(START_FEN)
 	_pretty_print_board()
 
 
 func make_move(move:Move) -> void:
 	board[move.end_square] = board[move.start_square]
 	board[move.start_square] = Piece.NONE
+
+	# Handle en passant
+	if move.result == Move.Result.CAPTURE and move.end_square == ep_target_square:
+		if color_to_move == Piece.WHITE:
+			board[move.end_square - 8] = Piece.NONE
+		else:
+			board[move.end_square + 8] = Piece.NONE
+
+	# Set ep_target
+	if move.result == Move.Result.DOUBLE:
+		if color_to_move == Piece.WHITE:
+			ep_target_square = move.end_square - 8
+		else:
+			ep_target_square = move.end_square + 8
+	else:
+		ep_target_square = -1
+
 	color_to_move = Piece.BLACK if color_to_move == Piece.WHITE else Piece.WHITE
 	_pretty_print_board()
 

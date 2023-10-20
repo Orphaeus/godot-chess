@@ -21,10 +21,13 @@ func _on_piece_unpicked(piece: GUI_Piece) -> void:
 	var end_square : int = BoardHelper.get_square_from_coords(piece.end_coords)
 	var requested_move = Move.new(start_square,end_square)
 
+	var move_approved := false
 	for move in picked_legal_moves:
 		if move.end_square == requested_move.end_square:
-			Position.make_move(requested_move)
+			move_approved = true
+			Position.make_move(move)
 			mockfish.update_moves()
 			gui_pieces.update_pieces()
-		else:
-			gui_pieces.update_pieces()
+			break
+	if not move_approved:
+		gui_pieces.update_pieces()

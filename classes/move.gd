@@ -1,9 +1,9 @@
 class_name Move
 extends Node
-## Represents a single move, including a starting square and a destination square.
+## Represents a single move, including a starting square, destination square, and move result.
 
 
-enum Result {MOVE, CAPTURE, CHECK, CASTLE, PROMOTE}
+enum Result {MOVE, CAPTURE, CHECK, CASTLE, PROMOTE, DOUBLE}
 
 var start_square: int
 var end_square: int

@@ -1,6 +1,3 @@
 res://scenes/main.tscn
 res://classes/gui_piece.gd
 res://scenes/gui_piece.tscn
-res://position.gd
-res://gui/guipieces.gd
-res://main.gd

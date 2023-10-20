@@ -58,14 +58,20 @@ func _generate_pawn_moves(start_square: int) -> Array:
 		moves.append(Move.new(start_square, end_square, Move.Result.MOVE))
 
 	# Double push
-	if start_square in range(8, 16):
+	if (
+			(start_square in range(8, 16)
+			and Position.color_to_move == Piece.WHITE)
+			or
+			(start_square in range(48, 56)
+			and Position.color_to_move == Piece.BLACK)
+	):
 		end_square = start_square + offsets["double"]
 		piece_on_end_square = Position.board[end_square]
 			# Blocked by friendly piece
 		if Piece.get_color(piece_on_end_square) == Position.color_to_move:
 			pass
 		if Piece.get_type(piece_on_end_square) == Piece.NONE:
-			moves.append(Move.new(start_square, end_square, Move.Result.MOVE))
+			moves.append(Move.new(start_square, end_square, Move.Result.DOUBLE))
 
 	# Captures # NEEDS TO BE REWRITTEN TO USE squares_to_edge
 	for offset in offsets["captures"]:
@@ -218,7 +224,7 @@ func precompute_move_data() -> void:
 				num_south,
 				min(num_south,num_east),
 			]
-	# Knight move addendum
+	# Knight move addendum CLEAN THIS UP LOL
 	# [15, 17, 6, 10, -10, -6, -17, -15]
 	for i in range(0,64):
 		var valid_offsets := [1, 1, 1, 1, 1, 1, 1, 1]
